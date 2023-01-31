@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* importation du CSS Boostrap */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+/* notre style */
+body {
+  background: rgb(38, 38, 39);
+  color: rgb(227, 227, 227)
+}
+
+
+

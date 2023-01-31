@@ -1,0 +1,10 @@
+div.card {
+  border:none;
+}
+div.card-body {
+  background: #19152f;
+}
+div.card h2 {
+  color: white;
+  font-size: 1.1em;
+}
