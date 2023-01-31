@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { MovieService } from '../services/movie.service';
 
 @Component({
   selector: 'app-list',
@@ -11,7 +11,7 @@ export class ListComponent {
 
   movies:Array<any> = [];
 
-  constructor(private http:HttpClient)  {
+  constructor(private movieSvc:MovieService)  {
     console.log(this); // this.http est un objet de la class HttpClient
   }
 
@@ -26,7 +26,7 @@ export class ListComponent {
       > .subscribe() exécutera la callback lorsque le serveur renverra une réponse
       > Observable.subscribe( faire qqchose quand il y a un changment sur l'observable )
     */
-    this.http.get('https://api.themoviedb.org/3/discover/movie?api_key=efdeb661aaa006b1e4f36f990a5fd8fd&language=fr')
+    this.movieSvc.getMoviesFromApi()
     .subscribe( (response:any) => {
       console.log(response.resulsts);
       //  2 assigner la reponse (array of movies objects) en valeur de this.movies
