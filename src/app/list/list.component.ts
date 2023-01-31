@@ -9,7 +9,7 @@ import { MovieService } from '../services/movie.service';
 
 export class ListComponent {
 
-  movies:Array<any> = [];
+  movies:Array<any> = []; // variable de vue
 
   constructor(private movieSvc:MovieService)  {
     console.log(this); // this.http est un objet de la class HttpClient
