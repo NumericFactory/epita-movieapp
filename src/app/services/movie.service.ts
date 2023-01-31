@@ -9,14 +9,13 @@ import { Observable, Subject} from 'rxjs';
 export class MovieService {
 
 
-  movies$:Subject<any> = new Subject()
+  movies$:Subject<any> = new Subject();
 
   constructor(private http:HttpClient) {
     console.log(this.movies$);
-   }
+  }
   //  l'objet http de la class HttpClient
   //  dispose des méthodes get(), post(), delete(), put(), ....
-
   /*
     La librairie HttpClient utilise la librairie RXJS
     ReactiveX : permet de faire de la programmation reactive
@@ -29,12 +28,12 @@ export class MovieService {
       - on peut modifier la valeur Subject.next()
   */
   
-
-
-
-  getMoviesFromApi():Observable<any> {
-    return this.http.get('https://api.themoviedb.org/3/discover/movie?api_key=efdeb661aaa006b1e4f36f990a5fd8fd&language=fr')
-    
+  getMoviesFromApi():void {
+    // 1 je fais la requete http
+    // 2 je pousser la donnee (la reponse) dans movies$
+    // 3 => Maintenant côté component (ListComponent), je peux m'abonner à movies$
+    this.http.get('https://api.themoviedb.org/3/discover/movie?api_key=efdeb661aaa006b1e4f36f990a5fd8fd&language=fr')
+    .subscribe( (response:any) => this.movies$.next(response.results))
   }
 
 

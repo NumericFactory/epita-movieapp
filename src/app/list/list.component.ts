@@ -25,16 +25,13 @@ export class ListComponent {
       >  sur un Observable, on peut s'abonner au changement avec .subscribe()
       > .subscribe() exécutera la callback lorsque le serveur renverra une réponse
       > Observable.subscribe( faire qqchose quand il y a un changment sur l'observable )
-    */
-    this.movieSvc.getMoviesFromApi()
-    .subscribe( (response:any) => {
-      console.log(response.resulsts);
-      //  2 assigner la reponse (array of movies objects) en valeur de this.movies
-      this.movies = response.results;
-    });
+    */  
+    this.movieSvc.getMoviesFromApi();
 
-    // "Hello" s'affichera dans la console AVANT le console.log(this.movies)
-    console.log("Hello"); 
+    // 2 je m'abonne à movies$
+    this.movieSvc.movies$
+    .subscribe( (moviesArr:any) => this.movies = moviesArr );
+
 
   } // fin ngOnInit()
 

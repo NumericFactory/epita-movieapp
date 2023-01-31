@@ -3,7 +3,6 @@
 
   <!-- On itère ce template HTML qui contient des cards-->
   <div *ngFor="let movie of movies" class="col-12 col-md-3">
-    <pre>{{ movie | json }}</pre>
     <!-- CARD-->
     <div class="card">
       <img [src]="getImgFullUrl(movie.backdrop_path)" alt="">
