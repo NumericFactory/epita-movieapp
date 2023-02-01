@@ -1,1 +1,11 @@
-<input type="text" class="form-control" placeholder="Rechercher des films...">
+<!-- 
+  on peut déclarer une template ref #field (qui vaut l'elt HTML input)
+  en JS on récupére la valeur d'un champ avec eltSelectionné.value 
+  (https://angular.io/guide/template-reference-variables)
+-->
+<input #field (keyup)="onKeyupInput(field.value)" type="text" class="form-control" placeholder="Rechercher des films...">
+
+<!-- Afficher la liste des movies trouvés-->
+<ul>
+
+</ul>

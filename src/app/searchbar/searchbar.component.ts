@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class SearchbarComponent {
 
+  
+  onKeyupInput(userSearch:string) {
+    console.log(userSearch);
+  }
+
 }

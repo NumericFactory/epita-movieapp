@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { MovieService } from '../services/movie.service';
+import { MovieModel } from '../shared/models/movie.model';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { MovieService } from '../services/movie.service';
 
 export class ListComponent  {
 
-  movies:Array<any> = []; // variable de vue
+  movies:Array<MovieModel> = []; // variable de vue
 
   constructor(private movieSvc:MovieService)  {
     console.log(this); // this.http est un objet de la class HttpClient
@@ -32,7 +33,7 @@ export class ListComponent  {
 
     // 2 je m'abonne à movies$
     this.movieSvc.getMovies$()
-    .subscribe( (moviesArr:any) => this.movies = moviesArr );
+    .subscribe( (moviesArr:MovieModel[]) => this.movies = moviesArr );
 
 
   } // fin ngOnInit()
