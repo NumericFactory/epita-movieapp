@@ -39,8 +39,13 @@ export class MovieService {
     .set('language', 'fr')
     .set('page', this.indexPage);
 
-    // je vais mapper mes objets movie
-    // j'utilise l'opérateur pipe, map
+    // MAPPER UNE REPONSE
+    /*
+      - Les opérateurs (pipe, map, filter, etc...) retourne des Observable
+      - Ici:
+        > this.http.get().pipe()retourne un Observable
+        > l'opérateur map permet de mapper notre réponse API et retourne observable
+    */
     this.http.get('https://api.themoviedb.org/3/discover/movie', {params})
     .pipe(
       map( (apiResponse:any) => apiResponse.results.map( 
