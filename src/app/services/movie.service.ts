@@ -10,6 +10,7 @@ export class MovieService {
 
 
   private movies$:Subject<any> = new Subject();
+  private indexPage:number = 1;
 
   constructor(private http:HttpClient) {
     console.log(this.movies$);
@@ -32,9 +33,11 @@ export class MovieService {
     // 1 je fais la requete http
     // 2 je pousser la donnee (la reponse) dans movies$
     // 3 => Maintenant côté component (ListComponent), je peux m'abonner à movies$
-    this.http.get('https://api.themoviedb.org/3/discover/movie?api_key=efdeb661aaa006b1e4f36f990a5fd8fd&language=fr')
+    this.http.get('https://api.themoviedb.org/3/discover/movie?api_key=efdeb661aaa006b1e4f36f990a5fd8fd&language=fr&page='+this.indexPage)
     
-    .subscribe( (response:any) => this.movies$.next(response.results))
+    .subscribe( (response:any) => this.movies$.next(response.results));
+
+    this.indexPage = this.indexPage + 1;
   }
 
 
