@@ -1,5 +1,7 @@
-import { Component} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { MovieService } from '../services/movie.service';
+import { MovieModel } from '../shared/models/movie.model';
+
 
 @Component({
   selector: 'app-list',
@@ -7,17 +9,19 @@ import { MovieService } from '../services/movie.service';
   styleUrls: ['./list.component.css']
 })
 
-export class ListComponent {
+export class ListComponent  {
 
   movies:Array<any> = []; // variable de vue
 
   constructor(private movieSvc:MovieService)  {
     console.log(this); // this.http est un objet de la class HttpClient
+
   }
 
   /* une méthode du cycle de vie du component */
   /* dans ngOnInit, on initialise les valeurs des variables d'affichage */
   ngOnInit() {
+    
     /*
       1 faire la requete HTTP [GET] à TMBD (/discover/movie)
       ******************************************************

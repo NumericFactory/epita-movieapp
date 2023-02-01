@@ -4,15 +4,16 @@
   <!-- On itère ce template HTML qui contient des cards-->
   <div *ngFor="let movie of movies" class="col-12 col-md-3">
     <!-- CARD-->
+    
     <div class="card">
       <img [src]="getImgFullUrl(movie.backdrop_path)" alt="">
 
       <div class="card-body">
         <h2>{{ movie.title }}</h2>
-
         <!-- le score sous forme d'icone star-->
       </div>
     </div>
+
   </div>
 
 
