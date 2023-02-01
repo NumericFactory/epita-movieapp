@@ -17,51 +17,37 @@ export class ListComponent  {
     console.log(this); // this.http est un objet de la class HttpClient
   }
 
-  /* une méthode du cycle de vie du component */
-  /* dans ngOnInit, on initialise les valeurs des variables d'affichage */
-  ngOnInit() {
-    
-    /*
-      1 faire la requete HTTP [GET] à TMBD (/discover/movie)
-      ******************************************************
-      this.http.get(url) retourne un Observable (C'est un objet proposé par la librarie RxJS)
-      >  sur un Observable, on peut s'abonner au changement avec .subscribe()
-      > .subscribe() exécutera la callback lorsque le serveur renverra une réponse
-      > Observable.subscribe( faire qqchose quand il y a un changment sur l'observable )
-    */  
+  /* 
+    ngOnInit est une méthode du cycle de vie du component
+    ngOnInit est éxécutée par Angular lorsque le component est initialisé et prêt
+    On initialise ici : 
+    - les valeurs des variables utilisée dans la vue HTML
+    - les souscriptions à des Observables 
+    - les appels de données aux services
+    documentation : https://angular.io/guide/lifecycle-hooks
+  */
+  ngOnInit() { 
+    // 1 faire la requete HTTP [GET] à TMBD (/discover/movie)
     this.movieSvc.getMoviesFromApi();
 
-    // 2 je m'abonne à movies$
+    // 2 je m'abonne à this.movieSvc.movies$. 
+    //   Lors d'un changement: on assigne la réponse en valeur de la propriété movies
     this.movieSvc.getMovies$()
     .subscribe( (moviesArr:MovieModel[]) => this.movies = moviesArr );
-
 
   } // fin ngOnInit()
 
 
-
+  /*
+    getImgFullUrl()
+    Rôle : retourne une url image formatée
+  */
   getImgFullUrl(urlFragment:string):string {
     // https://image.tmdb.org/t/p/w500/faXT8V80JRhnArTAeYXz0Eutpv9.jpg
     return 'https://image.tmdb.org/t/p/w500'+ urlFragment;
   }
 
-
-
-
-
-
-
-
-
-  // on requete l'API TMDB
-
-  // la méthode .get(url) de l'objet HttpClient
-  // permet de faire une requête HTTP
+ 
   
   
-  
-  
-
-
-
 }
