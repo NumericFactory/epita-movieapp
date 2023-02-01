@@ -7,6 +7,7 @@ import { ListComponent } from './list/list.component';
 import { DetailComponent } from './detail/detail.component';
 import { SearchbarComponent } from './searchbar/searchbar.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ActionbarComponent } from './actionbar/actionbar.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
     ListComponent,
     DetailComponent,
     SearchbarComponent,
+    ActionbarComponent,
   ],
   imports: [
     BrowserModule,

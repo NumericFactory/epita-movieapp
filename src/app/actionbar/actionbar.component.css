@@ -1,0 +1,8 @@
+div {
+  position: fixed;
+  bottom:0;
+  width: 100%;
+  padding: 7px;
+  background: #fff;
+  text-align: center;
+}
