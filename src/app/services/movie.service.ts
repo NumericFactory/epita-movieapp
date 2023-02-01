@@ -1,7 +1,9 @@
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, BehaviorSubject} from 'rxjs';
+import { map } from 'rxjs/operators';
+import { MovieModel } from '../shared/models/movie.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,12 +34,26 @@ export class MovieService {
     // 1 je fais la requete http
     // 2 je pousser la donnee (la reponse) dans movies$
     // 3 => Maintenant côté component (ListComponent), je peux m'abonner à movies$
-    this.http.get('https://api.themoviedb.org/3/discover/movie?api_key=efdeb661aaa006b1e4f36f990a5fd8fd&language=fr&page='+this.indexPage)
-    .subscribe( (response:any) => {
+    let params = new HttpParams()
+    .set('api_key', 'efdeb661aaa006b1e4f36f990a5fd8fd')
+    .set('language', 'fr')
+    .set('page', this.indexPage);
 
-      console.log(response.results);
+    // je vais mapper mes objets movie
+    // j'utilise l'opérateur pipe, map
+    this.http.get('https://api.themoviedb.org/3/discover/movie', {params})
+    .pipe(
+      map( (apiResponse:any) => apiResponse.results.map( 
+          (movie: any) => new MovieModel(movie) 
+        ) 
+      )
+    ) // fin du pipe()
+    // executer la request HTTP
+    .subscribe( (movies:MovieModel[]) => {
+
+      console.log(movies);
       let actualMovies = this.movies$.getValue();
-      let allMovies:any = [...actualMovies, ...response.results];
+      let allMovies:any = [...actualMovies, ...movies];
       this.movies$.next(allMovies);
       
     });
