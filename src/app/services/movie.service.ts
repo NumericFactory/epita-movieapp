@@ -8,7 +8,7 @@ import { Observable, Subject, BehaviorSubject} from 'rxjs';
 })
 export class MovieService {
 
-  // private movies$:Subject<any> = new Subject();
+  //private movies$:Subject<any> = new Subject();
   private movies$:BehaviorSubject<any> = new BehaviorSubject([]);
   private indexPage:number = 1;
 
@@ -34,9 +34,12 @@ export class MovieService {
     // 3 => Maintenant côté component (ListComponent), je peux m'abonner à movies$
     this.http.get('https://api.themoviedb.org/3/discover/movie?api_key=efdeb661aaa006b1e4f36f990a5fd8fd&language=fr&page='+this.indexPage)
     .subscribe( (response:any) => {
-      let actualMovies = this.movies$.getValue(); 
-      let allMovies:any = [...actualMovies, response.results]
+
+      console.log(response.results);
+      let actualMovies = this.movies$.getValue();
+      let allMovies:any = [...actualMovies, ...response.results];
       this.movies$.next(allMovies);
+      
     });
 
     this.indexPage = this.indexPage + 1;
