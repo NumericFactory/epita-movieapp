@@ -9,7 +9,7 @@ import { Observable, Subject} from 'rxjs';
 export class MovieService {
 
 
-  movies$:Subject<any> = new Subject();
+  private movies$:Subject<any> = new Subject();
 
   constructor(private http:HttpClient) {
     console.log(this.movies$);
@@ -33,7 +33,17 @@ export class MovieService {
     // 2 je pousser la donnee (la reponse) dans movies$
     // 3 => Maintenant côté component (ListComponent), je peux m'abonner à movies$
     this.http.get('https://api.themoviedb.org/3/discover/movie?api_key=efdeb661aaa006b1e4f36f990a5fd8fd&language=fr')
+    
     .subscribe( (response:any) => this.movies$.next(response.results))
+  }
+
+
+  getMovies$() {
+    return this.movies$.asObservable()
+  }
+
+  setMovie$(movies:any) {
+    this.movies$.next(movies);
   }
 
 

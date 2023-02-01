@@ -29,7 +29,7 @@ export class ListComponent {
     this.movieSvc.getMoviesFromApi();
 
     // 2 je m'abonne à movies$
-    this.movieSvc.movies$
+    this.movieSvc.getMovies$()
     .subscribe( (moviesArr:any) => this.movies = moviesArr );
 
 
