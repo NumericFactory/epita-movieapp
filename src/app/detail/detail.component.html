@@ -9,13 +9,19 @@
 </div>
 
 <div class="row">
+  <!-- details-->
   <div class="col">
     <h2>Date de sortie</h2>
     <p>{{ movie?.date | date:'dd/MM/yyyy' }}</p>
-
     <h2>Résumé</h2>
     <p>{{ movie?.resume }}</p>
+  </div>
+
+  <!-- video-->
+  <div class="col">
+    <div class="video-container">
+      <iframe [src]="videoUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
 
   </div>
-  <div class="col"></div>
 </div>

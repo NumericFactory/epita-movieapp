@@ -1,10 +1,14 @@
 <!-- <pre>{{ movies | json }}</pre> -->
+<h1>Les films à l'affiche</h1>
+
+<!-- app-searchbar -->
+<app-searchbar></app-searchbar>
+
 <div class="row py-3">
 
   <!-- On itère ce template HTML qui contient des cards-->
   <div *ngFor="let movie of movies" class="col-12 col-md-3">
     <!-- CARD-->
-    
     <div [routerLink]="['/detail', movie.id]" class="card">
       <img [src]="getImgFullUrl(movie.image_landscape)" alt="">
 
@@ -15,7 +19,7 @@
     </div>
 
   </div>
-
-
-
 </div>
+
+<!-- app-actionbar -->
+<app-actionbar></app-actionbar>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MovieService } from '../services/movie.service';
 import { MovieModel } from '../shared/models/movie.model';
@@ -12,12 +13,14 @@ export class DetailComponent {
 
   movie:any = {};
   movieId:number = 0;
-  videoUrl:string = '';
+  videoUrl!:SafeResourceUrl;
 
   constructor(
     private route:ActivatedRoute, 
     private router:Router,
-    private movieSvc:MovieService) {}
+    private movieSvc:MovieService,
+    private sanitizer: DomSanitizer
+    ) {}
 
 
   ngOnInit() {
@@ -37,7 +40,7 @@ export class DetailComponent {
     .subscribe( (response:any) => {
       console.log(response);
       let videoId = response.results[0].key;
-      this.videoUrl = 'https://www.youtube.com/embed/'+videoId;
+      this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+videoId);
     })
 
 
