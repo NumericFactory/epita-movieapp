@@ -5,7 +5,7 @@
   <div *ngFor="let movie of movies" class="col-12 col-md-3">
     <!-- CARD-->
     
-    <div class="card">
+    <div [routerLink]="['/detail', movie.id]" class="card">
       <img [src]="getImgFullUrl(movie.image_landscape)" alt="">
 
       <div class="card-body">

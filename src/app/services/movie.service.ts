@@ -31,6 +31,8 @@ export class MovieService {
   private movies$:BehaviorSubject<any> = new BehaviorSubject([]);
   private indexPage:number = 1;
 
+  private searchedMovies$:BehaviorSubject<any> = new BehaviorSubject([]);
+
   /*
     Injection de dépendance : 
     > on déclare la propriété http instance de HttpClient (en param de constructor)
@@ -79,6 +81,26 @@ export class MovieService {
   }
 
 
+  searchMoviesFromApi(userSearch:string) {
+
+    let params = new HttpParams()
+    .set('api_key', 'efdeb661aaa006b1e4f36f990a5fd8fd')
+    .set('language', 'fr')
+    .set('query', userSearch);
+
+    // la request
+    this.http.get('https://api.themoviedb.org/3/search/movie', {params})
+    // mapper la réponse à l'aide de pipe() et de l'opérateur RxJs map()
+    .pipe(
+      map( (apiResponse:any) => {
+        return apiResponse.results.map((movie: any) => new MovieModel(movie))
+      })
+    ) // fin du pipe() NB : Observable.pipe()retourne un Observable,
+
+    .subscribe( (foundMovies:MovieModel[]) => this.searchedMovies$.next(foundMovies) )
+
+  }
+
 
   /* 
     rôle : getter de _movies$ - return un Observable 
@@ -88,13 +110,10 @@ export class MovieService {
     return this.movies$.asObservable()
   }
 
-  /* 
-    rôle : getter de _movies$ - return un Observable 
-    Nos components peuvent consommer : > this.movieSvc.movies$.subscribe()
-  */
-  setMovie$(movies:any) {
-    this.movies$.next(movies);
+  getSearchedMovies$() {
+    return this.searchedMovies$.asObservable();
   }
+
 
 
 }

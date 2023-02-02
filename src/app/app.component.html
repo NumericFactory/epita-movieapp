@@ -7,7 +7,14 @@
   
 
   <!-- app-list -->
-  <app-list></app-list>
+  <!-- <app-list></app-list> -->
+
+  <!-- 
+    Le component router-outlet
+    décidera d'afficher le component ListComponent ou DetailComponent
+    selon le changement d'URL (localhost:4200 affichera la liste, localhost:4200/detail affichera le detail )
+  -->
+  <router-outlet></router-outlet>
 
 </div>
 
