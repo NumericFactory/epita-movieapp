@@ -1,2 +1,21 @@
-<p>detail works!</p>
+<div class="d-flex">
+  <!-- <button routerLink="/">
+    <i class="fas fa-arrow-left"></i>
+  </button> -->
+  <button class="btn btn-outline-light btn-sm" (click)="goBack()">
+    <i class="fas fa-arrow-left"></i>
+  </button>
+  <h1>{{ movie?.titre }}</h1>
+</div>
 
+<div class="row">
+  <div class="col">
+    <h2>Date de sortie</h2>
+    <p>{{ movie?.date | date:'dd/MM/yyyy' }}</p>
+
+    <h2>Résumé</h2>
+    <p>{{ movie?.resume }}</p>
+
+  </div>
+  <div class="col"></div>
+</div>

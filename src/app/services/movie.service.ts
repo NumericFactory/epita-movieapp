@@ -101,6 +101,18 @@ export class MovieService {
 
   }
 
+  /*
+    getVideosFromApi()
+    Rôle : faire la request HTTP 
+    endpoint : /movie/[id]/videos
+    On expose getVideosFromApi()
+    (consommable directement dans le component DetailComponent avec .subscribe())
+  */
+  getVideosFromApi(id:number) {
+    // return l'Observable de this.http.get(url)
+    return this.http.get('https://api.themoviedb.org/3/movie/'+id+'/videos?api_key=efdeb661aaa006b1e4f36f990a5fd8fd&language=fr');
+  }
+
 
   /* 
     rôle : getter de _movies$ - return un Observable 
@@ -109,7 +121,7 @@ export class MovieService {
   getMovies$() {
     return this.movies$.asObservable()
   }
-
+ 
   getSearchedMovies$() {
     return this.searchedMovies$.asObservable();
   }
