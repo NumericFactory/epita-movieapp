@@ -7,7 +7,7 @@ import { UserModel } from '../shared/models/userlogin.model';
 })
 export class UserService {
 
-  API_USER = 'https://api-user-server.herokuapp.com/api';
+  API_USER:string = 'https://api-user-server.herokuapp.com/api';
 
   constructor(private http:HttpClient) { }
 

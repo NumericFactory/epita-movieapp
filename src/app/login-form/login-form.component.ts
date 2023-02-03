@@ -28,8 +28,10 @@ export class LoginFormComponent {
     if(this.loginForm.valid) {
       // faire la request
       this.userSvc.login(this.loginForm.value)
-      .subscribe( (response) => {
-        console.log(response);
+      .subscribe( (response:any) => {
+        console.log( response);
+        // je stock le token dans le localStorage
+        localStorage.setItem('token', response.jwt)
       })
     }
   }
