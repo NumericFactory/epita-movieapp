@@ -7,11 +7,16 @@ import { UserModel } from '../shared/models/userlogin.model';
 })
 export class UserService {
 
+  API_USER = 'https://api-user-server.herokuapp.com/api';
+
   constructor(private http:HttpClient) { }
 
   login(credentials: UserModel ) {
-    let userData = {identifier:credentials.email, password: credentials.password };
-    return this.http.post('https://api-user-server.herokuapp.com/api/auth/local', userData); // Observable
+    let userData = {
+      identifier:credentials.email, 
+      password: credentials.password 
+    };
+    return this.http.post(this.API_USER+'/auth/local', userData); // Observable
   }
 
 }

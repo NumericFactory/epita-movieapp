@@ -24,7 +24,7 @@ export class LoginFormComponent {
   }
 
   onSubmit() {
-    // console.log(this.loginForm.value); // {email:'test@test.fr', password:'123456'}
+    // this.loginForm.value; // {email:'test@test.fr', password:'123456'}
     if(this.loginForm.valid) {
       // faire la request
       this.userSvc.login(this.loginForm.value)
