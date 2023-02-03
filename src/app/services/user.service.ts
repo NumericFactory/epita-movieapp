@@ -19,4 +19,6 @@ export class UserService {
     return this.http.post(this.API_USER+'/auth/local', userData); // Observable
   }
 
+  
+
 }
