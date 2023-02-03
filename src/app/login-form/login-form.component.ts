@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login-form',
@@ -15,14 +15,18 @@ export class LoginFormComponent {
   ngOnInit() {
     // construire une instance de FormGroup
     this.loginForm = this.fb.group({
-      email:'',
-      password:'',
+      email:['', [Validators.required, Validators.email] ],
+      password:['', Validators.required],
       // les champs de formulaire sont des instances de FormControl
     })
   }
 
   onSubmit() {
     console.log(this.loginForm) // instance FormGroup
+    // gérer la soumission
+    if(this.loginForm.valid) {
+      // faire la requete pour poster la donnée
+    }
   }
 
 }

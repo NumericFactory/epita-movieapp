@@ -6,9 +6,11 @@
   
     <label class="form-label">Email</label>
     <input class="form-control" formControlName="email" type="text">
+    <p *ngIf="loginForm.controls['email'].errors?.['required']">Champs requis</p>
+    <p *ngIf="loginForm.controls['email'].errors?.['email']">Veuillez saisir un email valide</p>
   
     <label class="form-label">Mot de passe</label>
-    <input class="form-control" formControlName="password" type="text">
+    <input class="form-control" formControlName="password" type="password">
   
     <button class="btn btn-primary">Se connecter</button>
   
