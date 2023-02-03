@@ -11,6 +11,10 @@ import { ActionbarComponent } from './actionbar/actionbar.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { CommentFormComponent } from './comment-form/comment-form.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +24,7 @@ import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
     SearchbarComponent,
     ActionbarComponent,
     LoginFormComponent,
+    CommentFormComponent,
     
   ],
   imports: [
@@ -27,8 +32,10 @@ import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
     AppRoutingModule,
     HttpClientModule,
     // pour utiliser les formulaire reactifs, on doit importer ReactiveFormsModule
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    // component material
+    MatSnackBarModule
   ],
   // on provide l'interceptor ErrorInterceptor à l'appplication
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true } ],

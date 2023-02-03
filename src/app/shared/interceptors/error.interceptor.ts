@@ -3,14 +3,17 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { Router } from '@angular/router';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor(private router:Router, private alertSvc:AlertService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request) // continuer ton chemin la requête 
@@ -18,8 +21,29 @@ export class ErrorInterceptor implements HttpInterceptor {
                                  // > soit vers le backend
     .pipe(
       tap( {
-        error(err) {
+        error: (err) => {
           console.log(err)
+          if(err instanceof HttpErrorResponse) {
+            switch(err.status) {
+              case 400:
+             this.alertSvc.showAlert("Les identifiants sont invalides")
+              break;
+              case 401:
+                this.alertSvc.showAlert("Vous n'êtes pas authentifié(e)");
+                this.router.navigate(['/login']);
+              break;
+              case 403:
+                this.alertSvc.showAlert("Vous n'êtes pas autorisé(e)")
+              break;
+              case 404:
+                this.alertSvc.showAlert("La ressource n'est pas disponible")
+              break;
+
+              default:
+              this.alertSvc.showAlert("Erreur serveur")
+            }
+          }
+
         },
       })
     )
