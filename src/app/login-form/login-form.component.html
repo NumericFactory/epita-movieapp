@@ -6,13 +6,24 @@
   
     <label class="form-label">Email</label>
     <input class="form-control" formControlName="email" type="text">
-    <p *ngIf="loginForm.controls['email'].errors?.['required']">Champs requis</p>
-    <p *ngIf="loginForm.controls['email'].errors?.['email']">Veuillez saisir un email valide</p>
+    <!-- Les erreurs email  -->
+    <p class="error" 
+        *ngIf="loginForm.touched && 
+               loginForm.controls['email'].errors?.['required']">Email requis</p>
+    <p class="error" 
+       *ngIf="loginForm.touched && 
+       loginForm.controls['email'].errors?.['email']">Veuillez saisir un email valide</p>
   
+
     <label class="form-label">Mot de passe</label>
     <input class="form-control" formControlName="password" type="password">
-  
-    <button class="btn btn-primary">Se connecter</button>
+    <!-- Les erreurs password  -->
+    <p class="error" 
+       *ngIf="loginForm.controls['password'].dirty && 
+              loginForm.touched && 
+              loginForm.controls['password'].hasError('required')">Le mot de passe est requis</p>
+
+    <button class="btn btn-primary mt-2">Se connecter</button>
   
   </form>
 

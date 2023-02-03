@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-login-form',
@@ -9,8 +10,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginFormComponent {
 
   loginForm!:FormGroup;
+  isSubmitted:boolean = false;
 
-  constructor(private fb:FormBuilder) {}
+  constructor(private fb:FormBuilder, private userSvc: UserService) {}
 
   ngOnInit() {
     // construire une instance de FormGroup
@@ -22,10 +24,13 @@ export class LoginFormComponent {
   }
 
   onSubmit() {
-    console.log(this.loginForm) // instance FormGroup
-    // gérer la soumission
+    // console.log(this.loginForm.value); // {email:'test@test.fr', password:'123456'}
     if(this.loginForm.valid) {
-      // faire la requete pour poster la donnée
+      // faire la request
+      this.userSvc.login(this.loginForm.value)
+      .subscribe( (response) => {
+        console.log(response);
+      })
     }
   }
 
