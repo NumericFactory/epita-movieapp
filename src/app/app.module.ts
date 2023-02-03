@@ -8,6 +8,8 @@ import { DetailComponent } from './detail/detail.component';
 import { SearchbarComponent } from './searchbar/searchbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ActionbarComponent } from './actionbar/actionbar.component';
+import { LoginFormComponent } from './login-form/login-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,11 +18,16 @@ import { ActionbarComponent } from './actionbar/actionbar.component';
     DetailComponent,
     SearchbarComponent,
     ActionbarComponent,
+    LoginFormComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    // pour utiliser les formulaire reactifs, on doit importer ReactiveFormsModule
+    ReactiveFormsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

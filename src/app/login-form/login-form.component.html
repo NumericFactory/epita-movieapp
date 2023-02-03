@@ -1,0 +1,11 @@
+<form [formGroup]="loginForm" (submit)="onSubmit()">
+
+  <label class="form-label">Email</label>
+  <input class="form-control" formControlName="email" type="text">
+
+  <label class="form-label">Mot de passe</label>
+  <input class="form-control" formControlName="password" type="text">
+
+  <button class="btn btn-primary">Se connecter</button>
+
+</form>

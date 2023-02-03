@@ -27,6 +27,7 @@ export class ListComponent  {
     documentation : https://angular.io/guide/lifecycle-hooks
   */
   ngOnInit() { 
+
     // 1 faire la requete HTTP [GET] à TMBD (/discover/movie)
     this.movieSvc.getMoviesFromApi();
 

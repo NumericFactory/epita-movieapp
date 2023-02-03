@@ -1,0 +1,11 @@
+nav {
+  display: flex;
+  justify-content: flex-end;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+}
+nav i {
+  font-size: 2em;
+  color: rgb(113 13 253);
+}
