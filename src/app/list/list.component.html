@@ -1,11 +1,10 @@
 <!-- <pre>{{ movies | json }}</pre> -->
-<h1>Les films à l'affiche</h1>
-
 <!-- app-searchbar -->
 <app-searchbar></app-searchbar>
 
-<div class="row py-3">
-
+<!-- vue list -->
+<div class="row pt-3 pb-5">
+  <h1 class="text-center">A l'affiche</h1>
   <!-- On itère ce template HTML qui contient des cards-->
   <div *ngFor="let movie of movies" class="col-12 col-md-3">
     <!-- CARD-->
@@ -21,5 +20,5 @@
   </div>
 </div>
 
-<!-- app-actionbar -->
+<!-- action bar (films suivants)-->
 <app-actionbar></app-actionbar>

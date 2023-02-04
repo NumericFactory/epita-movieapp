@@ -7,7 +7,8 @@
 body {
   background: rgb(26 26 30);
   color: rgb(227, 227, 227)
+
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { height: calc(100vh - 60px); }
+/* body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */

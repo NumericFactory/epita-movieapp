@@ -1,3 +1,27 @@
 input.form-control:focus {
-  box-shadow: 0 0 0 0.25rem rgb(113, 13, 253)
+  box-shadow: 0 0 0 0.1rem rgb(113, 13, 253)
+}
+input.form-control {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+ul {
+  z-index: 1;
+  background: rgb(244 244 244 / 99%);
+  position: sticky;
+  top: 40px;
+  overflow: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+ul li {
+  list-style: none;
+  padding: 5px;
+  font-size: 1.3em;
+  color: rgb(141, 141, 141);
+}
+ul li:hover {
+  cursor: pointer;
+  background: rgb(202 201 203);
 }

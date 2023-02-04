@@ -26,7 +26,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           if(err instanceof HttpErrorResponse) {
             switch(err.status) {
               case 400:
-             this.alertSvc.showAlert("Les identifiants sont invalides")
+             this.alertSvc.showAlert("Mauvaise requête (err 400)")
               break;
               case 401:
                 this.alertSvc.showAlert("Vous n'êtes pas authentifié(e)");
@@ -34,6 +34,7 @@ export class ErrorInterceptor implements HttpInterceptor {
               break;
               case 403:
                 this.alertSvc.showAlert("Vous n'êtes pas autorisé(e)")
+                this.router.navigate(['/login']);
               break;
               case 404:
                 this.alertSvc.showAlert("La ressource n'est pas disponible")

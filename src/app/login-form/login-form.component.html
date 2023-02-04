@@ -1,9 +1,23 @@
 <div class="row justify-content-center">
 
-  <h1>Connexion</h1>
+  <!-- TEMPLATE SI L'UTILISATEUR EST CONNECTÉ(E)-->
+  <div *ngIf="userSvc.isAuth()" class="col-12 col-md-6" >
+    <h1>Hello, vous êtes connecté(é)</h1>
 
-  <form class="col-12 col-md-6" [formGroup]="loginForm" (submit)="onSubmit()">
   
+      <p>Username : {{ userData.username?userData.username:'' }}</p>
+      <p>Email : {{ userData.email?userData.email:'' }}</p>
+      <p>ID : {{ userData.id?userData.id:'' }}</p>
+   
+
+    <button class="btn btn-light" (click)="userSvc.logout()">
+      Déconnexion
+    </button>
+  </div>
+
+  <!-- TEMPLATE SI L'UTILISATEUR EST DÉCONNECTÉ(E)-->
+  <form  *ngIf="!userSvc.isAuth()" class="col-12 col-md-6" [formGroup]="loginForm" (submit)="onSubmit()">
+    <h1>Connexion</h1>
     <label class="form-label">Email</label>
     <input class="form-control" formControlName="email" type="text">
     <!-- Les erreurs email  -->
@@ -23,7 +37,9 @@
               loginForm.touched && 
               loginForm.controls['password'].hasError('required')">Le mot de passe est requis</p>
 
-    <button class="btn btn-primary mt-2">Se connecter</button>
+    <div class="d-flex justify-content-right">
+      <button class="btn btn-dark btn-smd mt-2">Se connecter</button>
+    </div>
   
   </form>
 

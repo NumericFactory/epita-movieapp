@@ -29,6 +29,7 @@ export class MovieService {
          que la PROCHAINE valeur
   */
   private movies$:BehaviorSubject<any> = new BehaviorSubject([]);
+  private movieDetail$:BehaviorSubject<any> = new BehaviorSubject([]);
   private indexPage:number = 1;
 
   private searchedMovies$:BehaviorSubject<any> = new BehaviorSubject([]);
@@ -80,50 +81,82 @@ export class MovieService {
     // => Maintenant côté component (ListComponent), je peux m'abonner à movies$
   }
 
-
-  searchMoviesFromApi(userSearch:string) {
-
+   /*
+    searchMoviesFromApi()
+    endpoint : search/movie/
+    param : query:string
+    Rôle: Rechercher des films
+  */
+  searchMoviesFromApi(userSearch:string):void{
     let params = new HttpParams()
     .set('api_key', 'efdeb661aaa006b1e4f36f990a5fd8fd')
     .set('language', 'fr')
     .set('query', userSearch);
-
     // la request
     this.http.get('https://api.themoviedb.org/3/search/movie', {params})
-    // mapper la réponse à l'aide de pipe() et de l'opérateur RxJs map()
+    // mapper la réponse avec pipe() et de l'opérateur RxJs map()
     .pipe(
       map( (apiResponse:any) => {
         return apiResponse.results.map((movie: any) => new MovieModel(movie))
       })
-    ) // fin du pipe() NB : Observable.pipe()retourne un Observable,
-
+    ) // fin du pipe() 
+      // NB : Observable.pipe()retourne un Observable,
     .subscribe( (foundMovies:MovieModel[]) => this.searchedMovies$.next(foundMovies) )
 
   }
 
   /*
+    getDetailsFromApi()
+    endpoint : /movie/[id]
+    Rôle: récupérer le détails d'un film pour le component detail
+    On expose getDetailsFromApi()
+    (consommable dans le component DetailComponent) avec .subscribe()
+  */
+  getDetailsFromApi(id:number):void {
+    let params = new HttpParams()
+    .set('api_key', 'efdeb661aaa006b1e4f36f990a5fd8fd')
+    .set('language', 'fr');
+    this.http.get('https://api.themoviedb.org/3/movie/'+id, {params})
+    .pipe(
+      map( (apiResponse:any) => new MovieModel(apiResponse))
+    ) // fin du pipe() 
+      // NB : Observable.pipe()retourne un Observable,
+    .subscribe( (movie:MovieModel) => this.movieDetail$.next(movie) )
+  }
+
+  /*
     getVideosFromApi()
-    Rôle : faire la request HTTP 
     endpoint : /movie/[id]/videos
+    Rôle : faire la request HTTP 
     On expose getVideosFromApi()
     (consommable directement dans le component DetailComponent avec .subscribe())
   */
-  getVideosFromApi(id:number) {
-    // return l'Observable de this.http.get(url)
-    return this.http.get('https://api.themoviedb.org/3/movie/'+id+'/videos?api_key=efdeb661aaa006b1e4f36f990a5fd8fd&language=fr');
+  getVideosFromApi(id:number):Observable<unknown> {
+    let params = new HttpParams()
+    .set('api_key', 'efdeb661aaa006b1e4f36f990a5fd8fd')
+    .set('language', 'fr');
+    return this.http.get('https://api.themoviedb.org/3/movie/'+id+'/videos', {params});
   }
+
 
 
   /* 
     rôle : getter de _movies$ - return un Observable 
     Nos components peuvent consommer : > this.movieSvc.movies$.subscribe()
   */
-  getMovies$() {
+  getMovies$():Observable<MovieModel[]> {
     return this.movies$.asObservable()
   }
+
+  getMovieDetail$():Observable<MovieModel[]> {
+    return this.movieDetail$.asObservable()
+  }
  
-  getSearchedMovies$() {
+  getSearchedMovies$():Observable<MovieModel[]> {
     return this.searchedMovies$.asObservable();
+  }
+  setSearchMovies$(movies:MovieModel[]):void {
+    this.searchedMovies$.next(movies)
   }
 
 

@@ -7,6 +7,11 @@
 //   date: Date;
 // }
 
+interface Genre {
+  id:number;
+  name:string;
+}
+
 export class MovieModel {
   id:number;
   titre: string;
@@ -15,6 +20,8 @@ export class MovieModel {
   image_landscape: string;
   score: number;
   date: Date;
+  duration: number;
+  genres: Genre[] | any[];
 
   constructor(movieFromApi:any) {
     this.id = movieFromApi.id;
@@ -24,6 +31,8 @@ export class MovieModel {
     this.image_landscape = movieFromApi.backdrop_path;
     this.score = movieFromApi.vote_average;
     this.date = movieFromApi.release_date;
+    this.duration = movieFromApi.runtime? movieFromApi.runtime : 0;
+    this.genres = movieFromApi.genres?movieFromApi.genres:[];
   }
 
 

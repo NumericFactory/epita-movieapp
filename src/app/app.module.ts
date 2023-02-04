@@ -15,6 +15,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { CommentFormComponent } from './comment-form/comment-form.component';
+import { TokenInterceptor } from './shared/interceptors/token.interceptor';
+import { PrintDurationPipe } from './shared/pipes/print-duration.pipe';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { CommentFormComponent } from './comment-form/comment-form.component';
     ActionbarComponent,
     LoginFormComponent,
     CommentFormComponent,
+    PrintDurationPipe,
     
   ],
   imports: [
@@ -38,7 +41,10 @@ import { CommentFormComponent } from './comment-form/comment-form.component';
     MatSnackBarModule
   ],
   // on provide l'interceptor ErrorInterceptor à l'appplication
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true } ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true } 
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

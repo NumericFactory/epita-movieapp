@@ -1,6 +1,18 @@
+h1 {
+  margin: 0 0 0 10px;
+  line-height: 1.4em;
+}
 h2 {
   font-size: 1.3em;
-  color: rgb(113 13 253);
+  color: rgb(93, 27, 235);
+  margin-bottom: 0;
+}
+p.genre span{
+  padding: 2px 5px;
+  background: #fff;
+  margin: 5px;
+  border-radius: 50px;
+  color: #60605a;
 }
 .video-container {
   position: relative;

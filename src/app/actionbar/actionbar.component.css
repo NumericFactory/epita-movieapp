@@ -1,8 +1,21 @@
 div {
   position: fixed;
   bottom:0;
+  left: 0;
   width: 100%;
   padding: 7px;
-  background: #fff;
+  background: #0e0c1af3;
   text-align: center;
+}
+.btn.action {
+  background-color: none ;
+  color:rgb(201, 218, 232);
+  border: 2px solid #5a1db9
+}
+.btn.action:hover {
+  color:white;
+  border-color: #6a00ff
+}
+.btn.action:hover > i {
+  color:#6b02ff;
 }

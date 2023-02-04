@@ -23,11 +23,17 @@ export class SearchbarComponent {
     // appeler une méthode de MovieService 
     // pour faire la request HTTP à /search/movie?query=userSearch 
     if(userSearch.length==0) {
-      this.searchedMovies = [];
+      this.movieSvc.setSearchMovies$([]);
     }
     else {
       this.movieSvc.searchMoviesFromApi(userSearch);
     }
-  } 
+  }
+  
+  ngOnDestroy() {
+    // A la destruction du component (sur la navigation)
+    // on vide le tableau avec searchedMovies$.next([])
+    this.movieSvc.setSearchMovies$([]);
+  }
 
 }

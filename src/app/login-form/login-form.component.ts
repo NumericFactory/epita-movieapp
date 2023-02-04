@@ -13,10 +13,11 @@ export class LoginFormComponent {
 
   loginForm!:FormGroup;
   isSubmitted:boolean = false;
+  userData:any;
 
   constructor(
     private fb:FormBuilder, 
-    private userSvc: UserService,
+    public userSvc: UserService,
     private alertSvc: AlertService,
     private router:Router
     ) {}
@@ -27,25 +28,65 @@ export class LoginFormComponent {
       email:['', [Validators.required, Validators.email] ],
       password:['', Validators.required],
       // les champs de formulaire sont des instances de FormControl
-    })
+    });
+
+    let userDataInStorage = localStorage.getItem('userData');
+    this.userData = userDataInStorage!=null?JSON.parse(userDataInStorage):{};
+    
   }
 
+
+
+
+  /*
+    OnSubmit()
+    Rôle : gestion de la soumission du formulaire de login
+    Rappel de la connexion stateless
+    1 -> On envoie un couple login/mdp
+    2 -> Si l'email et MDP match, le serveur renvoie un JsonWebToken
+
+    On peut stocker le token dans le localStorage, un cookie sécurisé ou simplement d'un subject
+    Lorsque l'utilisateur fera une requête qui demande dêtre authentifié, 
+    on enverra le token dans les headers de la requête
+  */
   onSubmit() {
-    // this.loginForm.value; // {email:'test@test.fr', password:'123456'}
+    // this.loginForm.value; // renvoie {email:'test@test.fr', password:'123456'}
     if(this.loginForm.valid) {
       // faire la request
       this.userSvc.login(this.loginForm.value)
-      .subscribe( (response:any) => {
-        console.log( response);
-        // je stock le token dans le localStorage
-        localStorage.setItem('token', response.jwt);
-        if(response.jwt) {
-          this.router.navigate(['/']);
-          this.alertSvc.showAlert('Vous êtes connecté(e)');
-        }
-        
-      })
+      .subscribe( 
+        {
+          next: (response:any) => {
+            console.log( response);
+            // on stock le token dans le localStorage
+            let userData = {
+              id: response.user.id,
+              token: response.jwt, 
+              email : response.user.email,
+              username : response.user.username,
+            };
+            localStorage.setItem('token', response.jwt);
+            localStorage.setItem('userData', JSON.stringify(userData));
+
+            // si la réponse est OK
+            if(response.jwt) {
+              this.router.navigate(['/']);
+              this.alertSvc.showAlert('Vous êtes connecté(e)');
+            }
+          },
+          error: (err) => console.log(err)
+      }
+
+      )
     }
+  }
+
+  /*
+    logoutAction()
+    Rôle : déconnecter l'utilisateur en supprimer le token du localStorage
+  */
+  logoutAction() {
+    this.userSvc.logout()
   }
 
 }

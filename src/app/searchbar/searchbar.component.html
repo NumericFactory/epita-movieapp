@@ -6,6 +6,8 @@
 <input #field (keyup)="onKeyupInput(field.value)" type="text" class="form-control" placeholder="Rechercher des films...">
 
 <!-- Afficher la liste des movies trouvés-->
-<ul>
-  <li *ngFor="let movie of searchedMovies">{{ movie.titre }}</li>
+<ul *ngIf="searchedMovies.length>0">
+  <li [routerLink]="['detail', movie.id]"*ngFor="let movie of searchedMovies">
+    {{ movie.titre }}
+  </li>
 </ul>
