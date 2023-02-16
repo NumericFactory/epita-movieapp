@@ -17,6 +17,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { CommentFormComponent } from './comment-form/comment-form.component';
 import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 import { PrintDurationPipe } from './shared/pipes/print-duration.pipe';
+import { VideoComponent } from './shared/comps/video/video.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { PrintDurationPipe } from './shared/pipes/print-duration.pipe';
     LoginFormComponent,
     CommentFormComponent,
     PrintDurationPipe,
+    VideoComponent,
     
   ],
   imports: [

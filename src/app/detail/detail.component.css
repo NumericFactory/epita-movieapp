@@ -14,15 +14,3 @@ p.genre span{
   border-radius: 50px;
   color: #60605a;
 }
-.video-container {
-  position: relative;
-  padding-bottom: 56.25%;
-}
-
-.video-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}

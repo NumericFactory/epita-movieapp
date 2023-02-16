@@ -14,7 +14,7 @@ export class SearchbarComponent {
   constructor(private movieSvc:MovieService) {}
 
   ngOnInit() {
-    this.movieSvc.getSearchedMovies$()
+    this.movieSvc.searchedMovies$
     .subscribe( (foundMovies:MovieModel[]) => this.searchedMovies = foundMovies  );
   }
 

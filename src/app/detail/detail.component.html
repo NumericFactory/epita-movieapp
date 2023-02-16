@@ -1,30 +1,28 @@
 <div class="d-flex mt-5 py-2">
-  <!-- <button routerLink="/">
-    <i class="fas fa-arrow-left"></i>
-  </button> -->
+  
   <button class="btn btn-outline-light btn-sm" (click)="goBack()">
     <i class="fas fa-arrow-left"></i>
   </button>
-  <h1>{{ movie?.titre }}</h1>
+  <h1>{{ (movieSvc.movieDetail$ | async)?.titre }}</h1>
 </div>
 
-<div class="row">
+<div *ngIf="movieSvc.movieDetail$ | async as movie" class="row">
 
   <!-- video-->
   <div class="col-12 col-lg-6">
-    <div class="video-container">
-      <iframe *ngIf="videoUrl != null" [src]="videoUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;  clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      <h2 *ngIf="videoUrl == null">Pas de video disponible</h2>
-    </div>
+    
+    <!-- component app-video -->
+    <app-video [videoUrlInput]="videoUrl"></app-video>
+
   </div>
 
   <!-- details-->
   <div class="col-12 col-lg-6">
     <h2>Date de sortie</h2>
-    <p>{{ movie?.date | date:'dd/MM/yyyy' }}</p>
+    <p>{{ movie.date | date:'dd/MM/yyyy' }}</p>
 
     <h2>Résumé</h2>
-    <p>{{ movie?.resume }}</p>
+    <p>{{ movie.resume }}</p>
 
     <h2>Genres</h2>
     <p class="genre"><span *ngFor="let genre of movie.genres">{{ genre.name}}</span></p>

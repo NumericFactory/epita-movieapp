@@ -11,37 +11,30 @@ import { MovieModel } from '../shared/models/movie.model';
 })
 export class DetailComponent {
 
-  movie:any = {};
+  movie!:MovieModel;
   movieId:number = 0;
-  videoUrl!:SafeResourceUrl | null;
+  videoUrl:string = '';
 
   constructor(
     private route:ActivatedRoute, 
     private router:Router,
-    private movieSvc:MovieService,
+    public movieSvc:MovieService,
     private sanitizer: DomSanitizer
     ) {}
 
 
   ngOnInit() {
-
     console.log( this.route.snapshot.params) // {id: 123456}
     this.movieId = this.route.snapshot.params['id'];
 
-    // SOIT récupérer les données du film sur movies$ (movie.service.ts)
-    // this.movieSvc.getMovies$().subscribe( (movies:MovieModel[]) => {
-    //   this.movie = movies.find( (movie) => movie.id == this.movieId);
-    //   console.log(this.movie);
-    // })
-    
-    // SOIT récupérer les données du film
-    // en faisant la request /movie/[id]
+    // Récupérer les données du film
+    // endpoint /movie/[id]
     this.movieSvc.getDetailsFromApi(this.movieId);
 
-    this.movieSvc.getMovieDetail$()
-    .subscribe(
-      (movie:MovieModel[]) => this.movie = movie
-    );
+    // // this.movieSvc.movieDetail$
+    // // .subscribe((movie:MovieModel) => {
+    //   this.movie = movie
+    // });
 
 
     // récupérer la liste des videos
@@ -51,11 +44,9 @@ export class DetailComponent {
       console.log(response);
       if(response.results.length>0) {
         let videoId = response.results[0].key;
-        this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+videoId+'?showinfo=0');
+        this.videoUrl = 'https://www.youtube.com/embed/' + videoId;
       }
-      else {
-        this.videoUrl = null
-      }
+
     })
 
 

@@ -1,0 +1,10 @@
+<div class="video-container">
+  <!-- si une video existe-->
+  <iframe *ngIf="videoUrl != null" [src]="videoUrl"
+    frameborder="0" allow="accelerometer; autoplay;
+    clipboard-write; encrypted-media; gyroscope; 
+    picture-in-picture; web-share" allowfullscreen></iframe>
+  <!-- si pas de vidéo-->
+  <h2 *ngIf="videoUrl == null">Pas de video disponible</h2>
+
+</div>

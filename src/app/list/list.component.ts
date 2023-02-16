@@ -12,6 +12,7 @@ import { MovieModel } from '../shared/models/movie.model';
 export class ListComponent  {
 
   movies:Array<MovieModel> = []; // variable de vue
+  subscription:any;
 
   constructor(private movieSvc:MovieService)  {
     console.log(this); // this.http est un objet de la class HttpClient
@@ -29,12 +30,14 @@ export class ListComponent  {
   ngOnInit() { 
 
     // 1 faire la requete HTTP [GET] à TMBD (/discover/movie)
-    this.movieSvc.getMoviesFromApi();
+     this.movieSvc.getMoviesFromApi();
 
-    // 2 je m'abonne à this.movieSvc.movies$. 
-    //   Lors d'un changement: on assigne la réponse en valeur de la propriété movies
-    this.movieSvc.getMovies$()
-    .subscribe( (moviesArr:MovieModel[]) => this.movies = moviesArr );
+    // 2 je m'abonne à this.movieSvc.movies$.
+    this.subscription = this.movieSvc.movies$
+    .subscribe( (moviesArr:MovieModel[]) => {
+      console.log("Hello Je réagis !!!!!!!!!!!!!!!!");
+      this.movies = moviesArr
+    });
 
   } // fin ngOnInit()
 
@@ -46,6 +49,16 @@ export class ListComponent  {
   getImgFullUrl(urlFragment:string):string {
     // https://image.tmdb.org/t/p/w500/faXT8V80JRhnArTAeYXz0Eutpv9.jpg
     return 'https://image.tmdb.org/t/p/w500'+ urlFragment;
+  }
+
+
+  /*
+    Méthode du cycle de vie
+  */
+  ngOnDestroy() {
+    console.log('Je suis ngOnDestroy');
+    // dé-souscrire à nos souscriptions
+    this.subscription.unsubscribe();
   }
 
  

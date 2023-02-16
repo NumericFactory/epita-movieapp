@@ -6,6 +6,7 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -15,12 +16,11 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
    
+
     let token = localStorage.getItem('token');
     
-
-
     console.log(request); // 
-    if(request.url.includes('https://api-user-server.herokuapp.com/api/comments')) {
+    if(request.url.includes('https://api-user-server.herokuapp.com/api/auth')) {
       if(request.method == 'POST') {
         this.cloneRequest = request
         .clone({headers: request.headers.set('Authorization', 'Bearer '+token)})

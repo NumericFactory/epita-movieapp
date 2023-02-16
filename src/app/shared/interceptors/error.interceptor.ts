@@ -34,7 +34,7 @@ export class ErrorInterceptor implements HttpInterceptor {
               break;
               case 403:
                 this.alertSvc.showAlert("Vous n'êtes pas autorisé(e)")
-                this.router.navigate(['/login']);
+                // this.router.navigate(['/login']);
               break;
               case 404:
                 this.alertSvc.showAlert("La ressource n'est pas disponible")
